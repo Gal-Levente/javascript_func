@@ -4,5 +4,42 @@ table, thead, tbody, tr, th, td {
 }
 
 tr td:last-child, tr td:nth-last-child(3) {
-    background-color: greenyellow;
+    background-color: lightgreen;
+}
+
+#gyakorlas {
+    background-color: coral;
+    color: white;
+}
+
+#gyakorlas button:has(+p) {
+    background-color: orange;
+}
+
+#gyakorlas button:not(:has(+p)) {
+    background-color: red;
+}
+
+#gyakorlas:has(+a:hover) button {
+    background-color: white;
+}
+
+tr:not(:has(td[rowspan])) + tr:not(:has(td[rowspan])):hover td{
+    background-color: aqua;
+}
+
+tbody tr:has(td[rowspan]):hover td{
+    background-color: yellow;
+}
+
+tbody tr:has(td[rowspan]):hover + tr td {
+    background-color: yellow;
+}
+
+tr:has(td[rowspan]):has(+tr:hover) td {
+    background-color: yellow;
+}
+
+tr:has(+tr:hover) + tr td {
+    background-color: yellow;
 }
