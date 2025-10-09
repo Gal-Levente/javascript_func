@@ -51,20 +51,22 @@ tr.appendChild(th3);
 const tbody = document.createElement('tbody');
 table.appendChild(tbody);
 
-const tr2 = document.createElement('tr');
-tbody.appendChild(tr2);
-
-const td = document.createElement('td');
-td.innerText = element.theme;
-table.appendChild(td);
-const td2 = document.createElement('td');
-td2.innerText = Element.theme;
-table.appendChild(td2);
-const td3 = document.createElement('td');
-td3.innerText;
-td3.colSpan = 2;
-table.appendChild(td3);
-
 for (const a of arr) {
-    td.innerText = a.theme
+    const tr2 = document.createElement('tr');
+    tbody.appendChild(tr2);
+
+    const td1 = document.createElement('td');
+    td1.innerText = a.theme;
+    tr2.appendChild(td1);
+    const td2 = document.createElement('td');
+    td2.innerText = a.time;
+    tr2.appendChild(td2);
+    const td3 = document.createElement('td');
+    td3.innerText = a.scientist1;
+    tr2.appendChild(td3);
+    if(a.scientist2) {
+        const td4 = document.createElement('td');
+        td4.innerText = a.scientist2;
+        tr2.appendChild(td4)
+    } else {td3.colSpan = 2}
 }
