@@ -70,3 +70,15 @@ for (const ar of arr) {
         tr2.appendChild(td4);
     } else {td3.colSpan = 2}
 }
+
+/**
+ * létrehoz egy táblázatcella elemet és hozzáfűzi egy sorhoz
+ * @param {string} cellType - cella típusa: th/td
+ * @param {string} cellContent - a cella szövege
+ * @param {HTMLTableRowElement} cellRow - ehhez a sorhoz fogja hozzáadni
+ */
+function createCellElement(cellType, cellContent, cellRow) {
+    const type = document.createElement(cellType);
+    type.innerText = cellContent;
+    cellRow.appendChild(type);
+}
