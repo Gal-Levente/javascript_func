@@ -37,16 +37,9 @@ table.appendChild(thead);
 const tr1 = document.createElement('tr');
 thead.appendChild(tr1);
 
-const th1 = document.createElement('th');
-th1.innerText = 'Szerző neve';
-tr1.appendChild(th1);
-const th2 = document.createElement('th');
-th2.innerText = 'Korszak';
-tr1.appendChild(th2);
-const th3 = document.createElement('th');
-th3.innerText = 'Szerelmek';
-th3.colSpan = 2;
-tr1.appendChild(th3);
+createCellElement("th", "Szerző neve", tr1);
+createCellElement("th", "Korszak", tr1);
+createCellElement("th", "Szerelmek", tr1).colSpan = 2;
 
 const tbody = document.createElement('tbody');
 table.appendChild(tbody);
@@ -55,20 +48,15 @@ for (const ar of arr) {
     const tr2 = document.createElement('tr');
     tbody.appendChild(tr2);
 
-    const td1 = document.createElement('td');
-    td1.innerText = ar.name;
-    tr2.appendChild(td1);
-    const td2 = document.createElement('td');
-    td2.innerText = ar.time;
-    tr2.appendChild(td2);
-    const td3 = document.createElement('td');
-    td3.innerText = ar.love1;
-    tr2.appendChild(td3);
+    createCellElement("td", ar.name, tr2);
+    createCellElement("td", ar.time, tr2);
+    const td3 = createCellElement("td", ar.love1, tr2);
     if(ar.love2) {
-        const td4 = document.createElement('td');
-        td4.innerText = ar.love2;
-        tr2.appendChild(td4);
-    } else {td3.colSpan = 2}
+        createCellElement("td", ar.love2, tr2);
+    }
+    else {
+        td3.colSpan = 2;
+    }
 }
 
 /**
@@ -76,9 +64,11 @@ for (const ar of arr) {
  * @param {string} cellType - cella típusa: th/td
  * @param {string} cellContent - a cella szövege
  * @param {HTMLTableRowElement} cellRow - ehhez a sorhoz fogja hozzáadni
+ * @returns {HTMLTableCellElement} - a visszatérő érték egy cella lesz
  */
 function createCellElement(cellType, cellContent, cellRow) {
-    const type = document.createElement(cellType);
-    type.innerText = cellContent;
-    cellRow.appendChild(type);
+    const cell = document.createElement(cellType);
+    cell.innerText = cellContent;
+    cellRow.appendChild(cell);
+    return cell;
 }
