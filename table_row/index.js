@@ -59,6 +59,14 @@ for (let i = 0; i < arr.length; i++) {
 
     if (a.nationality) {
         const td1 = document.createElement("td");
+        td1.addEventListener('click', function(e) {
+                /**
+                 * @type {HTMLTableCellElement}
+                 */
+                const a = e.target;
+                a.classList.add('marked');
+            }
+        )
         td1.innerText = a.nationality;
         if (arr[i + 1] && !arr[i + 1].nationality) {
             td1.rowSpan = 2;
