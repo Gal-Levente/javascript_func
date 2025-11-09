@@ -50,36 +50,50 @@ for (const x of ths) {
 }
 
 const tbody = document.createElement("tbody");
+tbody.id = 'tbodyID';
 table.appendChild(tbody);
 
-for (let i = 0; i < arr.length; i++) {
-    const a = arr[i];
-    const trBody = document.createElement("tr");
-    tbody.appendChild(trBody);
+function renderTableBody(array) {
+    const tbody = document.getElementById('tbodyID');
+    tbody.innerHTML = '';
 
-    if (a.nationality) {
-        const td1 = document.createElement("td");
-        td1.addEventListener('click', function(e) {
-                /**@type {HTMLTableCellElement} */
-                const a = e.target;
-                a.classList.add('marked');
+    for (let i = 0; i < arr.length; i++) {
+        const a = array[i];
+        const trBody = document.createElement("tr");
+        tbody.appendChild(trBody);
+
+        if (a.nationality) {
+            const td1 = document.createElement("td");
+            td1.addEventListener('click', function(e) {
+                    /**@type {HTMLTableCellElement} */
+                    const a = e.target;
+                    const p = a.parentElement;
+                    const tb = p.parentElement;
+                    const tbq = tb.querySelector('.marked');
+                    if (tbq !== null) {
+                        tbq.classList.remove('marked');
+                    }
+                    a.classList.add('marked');
+                }
+            );
+            td1.innerText = a.nationality;
+            if (arr[i + 1] && !arr[i + 1].nationality) {
+                td1.rowSpan = 2;
             }
-        );
-        td1.innerText = a.nationality;
-        if (arr[i + 1] && !arr[i + 1].nationality) {
-            td1.rowSpan = 2;
+            trBody.appendChild(td1);
         }
-        trBody.appendChild(td1);
+
+        const td2 = document.createElement("td");
+        td2.innerText = a.writer;
+        trBody.appendChild(td2);
+
+        const td3 = document.createElement("td");
+        td3.innerText = a.title;
+        trBody.appendChild(td3);
     }
-
-    const td2 = document.createElement("td");
-    td2.innerText = a.writer;
-    trBody.appendChild(td2);
-
-    const td3 = document.createElement("td");
-    td3.innerText = a.title;
-    trBody.appendChild(td3);
 }
+
+renderTableBody(arr);
 
 const form = document.getElementById('htmlform'); // elkéri a formot
 form.addEventListener('submit', function(e){
@@ -118,7 +132,7 @@ form.addEventListener('submit', function(e){
     obj.mu1 = mu1_value;
     obj.mu2 = mu2_value;
     
-    const tbody = document.getElementById('tbodyID');
+    //const tbody = document.getElementById('tbodyID');
 
     const tr = document.createElement("tr");
     
@@ -186,3 +200,45 @@ createFormElement(formNew, 'mu2', 'Mű címe:');
 const button = document.createElement('button')
 button.innerText = 'Hozzáadás';
 formNew.appendChild(button)
+
+formNew.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    /**@type {HTMLFormElement} */
+    const form = e.target;
+
+    /**@type {HTMLFormElement} */
+    const a = e.target;
+    /**@type {HTMLInputElement} */
+    const nemzetiseg = a.querySelector('#nemzetiseg');
+    /**@type {HTMLInputElement} */
+    const szerzo1 = a.querySelector('#szerzo1');
+    /**@type {HTMLInputElement} */
+    const szerzo2 = a.querySelector('#szerzo2');
+    /**@type {HTMLInputElement} */
+    const mu1 = a.querySelector('#mu1');
+    /**@type {HTMLInputElement} */
+    const mu2 = a.querySelector('#mu2');
+
+    /**@type {string} */
+    const nemzetiseg_value = nemzetiseg.value;
+    /**@type {string} */
+    const szerzo1_value = szerzo1.value;
+    /**@type {string} */
+    const szerzo2_value = szerzo2.value;
+    /**@type {string} */
+    const mu1_value = mu1.value;
+    /**@type {string} */
+    const mu2_value = mu2.value;
+
+    const obj = {}
+
+    obj.nemzetiseg = nemzetiseg_value;
+    obj.szerzo1 = szerzo1_value;
+    obj.szerzo2 = szerzo2_value;
+    obj.mu1 = mu1_value;
+    obj.mu2 = mu2_value;
+
+    arr.push(obj);
+    renderTableBody(arr);
+})
