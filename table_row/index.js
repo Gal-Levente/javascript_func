@@ -100,14 +100,16 @@ formNew.addEventListener('submit', function(e) {
 
     const obj = {}
 
-    obj.nemzetiseg = nemzetiseg_value;
-    obj.szerzo1 = szerzo1_value;
-    obj.szerzo2 = szerzo2_value;
-    obj.mu1 = mu1_value;
-    obj.mu2 = mu2_value;
+    if(validateFields(obj.nemzetiseg, obj.szerzo1, obj.mu1)) {
+        obj.nemzetiseg = nemzetiseg_value;
+        obj.szerzo1 = szerzo1_value;
+        obj.szerzo2 = szerzo2_value;
+        obj.mu1 = mu1_value;
+        obj.mu2 = mu2_value;
 
-    arr.push(obj);
-    renderTableBody(arr);
+        arr.push(obj);
+        renderTableBody(arr);
+    }
 })
 
 /**

@@ -33,26 +33,33 @@ function createFormElement(form, id, labelContent) {
  * @param {string} labelContent 
  */
 function createFormElement(form, id, labelContent) {
+    const div = document.createElement('div');
+    form.appendChild(div);
+
     const label = document.createElement('label');
     label.htmlFor = id;
     label.innerText = labelContent;
-    form.appendChild(label);
+    div.appendChild(label);
 
     const br = document.createElement("br");
-    form.appendChild(br);
+    div.appendChild(br);
 
     const input = document.createElement('input');
     input.type = 'text';
     input.id = id;
-    form.appendChild(input);
+    div.appendChild(input);
+
+    const span = document.createElement('span');
+    span.classList.add('error');
+    div.appendChild(span);
 
     const br2 = document.createElement("br");
-    form.appendChild(br2);
+    div.appendChild(br2);
 
     const br3 = document.createElement("br");
-    form.appendChild(br3);
+    div.appendChild(br3);
 }
-/**@param {*} array  */
+/**@param {} array  */
 function renderTableBody(array) {
     
     const tbody = document.getElementById('tbodyID');
@@ -342,4 +349,20 @@ function HTMLFormEventListener(e) {
         td5.innerText = obj.mu2;
         tr2.appendChild(td5);
     }
+}
+
+/**
+ * @param {HTMLInputElement} inputfield1 
+ * @param {HTMLInputElement} inputfield2 
+ * @param {HTMLInputElement} inputfield3 
+ */
+function validateFields(inputfield1, inputfield2, inputfield3) {
+    let valid = true;
+    if(inputfield1.value == '') {
+        const parentDiv = inputfield1.parentElement;
+        const err = parentDiv.querySelector('.error');
+        err.innerText = 'Mező kitöltése kötelező';
+        valid = false;
+    }
+    return valid;
 }
