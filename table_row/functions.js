@@ -103,36 +103,40 @@ function renderTableBody(array) { // létrehoz egy táblázat testet az arr alap
  */
 function createFormElement(form, fields) { // feltölti a formot a dataként megadott adatokkal
     for(const field of fields) {
-        const div = document.createElement('div');
-        form.appendChild(div);
-
-        const label = document.createElement('label');
-        label.htmlFor = field.id;
-        label.innerText = field.label;
-        div.appendChild(label);
-
-        const br = document.createElement('br');
-        div.appendChild(br);
-
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.id = field.id;
-        div.appendChild(input);
-
-        const span = document.createElement('span');
-        span.classList.add('error');
-        div.appendChild(span);
-
-        const br2 = document.createElement('br');
-        div.appendChild(br2);
-
-        const br3 = document.createElement('br');
-        div.appendChild(br3);
+        createFormElementInput(form, field);
     }
 
     const button = document.createElement('button'); // létrezozaa a hozzáadás gombot
     button.innerText = 'Hozzáadás';
     form.appendChild(button)
+}
+
+function createFormElementInput(form, field) {
+    const div = document.createElement('div');
+    form.appendChild(div);
+
+    const label = document.createElement('label');
+    label.htmlFor = field.id;
+    label.innerText = field.label;
+    div.appendChild(label);
+
+    const br = document.createElement('br');
+    div.appendChild(br);
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = field.id;
+    div.appendChild(input);
+
+    const span = document.createElement('span');
+    span.classList.add('error');
+    div.appendChild(span);
+
+    const br2 = document.createElement('br');
+    div.appendChild(br2);
+
+    const br3 = document.createElement('br');
+    div.appendChild(br3);
 }
 
 /**
@@ -193,6 +197,10 @@ function HTMLFormEventListener(e) { // eseménykezelő a formhoz
     /**@type {HTMLInputElement} elkéri a mu2 id-jű elemeket*/
     const mu2 = a.querySelector('#mu2');
 
+    if(validateFields(nemzetiseg.value, szerzo1.value, mu1.value) == false) { //ha a validálás false értékkel tért vissza akkor nem engedi tovább a függvényt
+        return;
+    }
+
     /**@type {string} az eredeti nemzetiseg változó value tullajdonságát belerakjuk egy újabb változóba*/
     const nemzetiseg_value = nemzetiseg.value;
     /**@type {string} az eredeti szerzo1 változó value tullajdonságát belerakjuk egy újabb változóba*/
@@ -203,10 +211,6 @@ function HTMLFormEventListener(e) { // eseménykezelő a formhoz
     const mu1_value = mu1.value;
     /**@type {string} az eredeti mu2 változó value tullajdonságát belerakjuk egy újabb változóba*/
     const mu2_value = mu2.value;
-
-    if(validateFields(nemzetiseg_value, szerzo1_value, mu1_value) == false) { //ha a validálás false értékkel tért vissza akkor nem engedi tovább a függvényt
-        return;
-    }
 
     /**@type {CountryWriters} */
     const obj = {} // első objektum a nemzetiség és szerző és mű tárolására

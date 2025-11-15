@@ -1,3 +1,6 @@
+/**
+ * @type {FormFields[]}
+ */
 const data = {
     headers: ["Nemzetiség", "Szerző", "Mű"], // táblázat fejléc adatai
     formFields: [ // form mezőinek adatai
@@ -8,6 +11,9 @@ const data = {
         {id: 'mu2', label: 'Másik mű címe:'}
     ]
 }
+/**
+ * @type {CountryWriters[]}
+ */
 const arr = [ // alap adatok a táblázatba
     {
         nationality: 'Orosz',
